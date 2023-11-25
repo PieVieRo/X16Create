@@ -12,6 +12,8 @@ int main() {
     SetWindowState(FLAG_WINDOW_RESIZABLE);
     SetTargetFPS(60);
     Sprite sprite = { 8, 50 };
+    Palette current_palette = { 0 };
+    memcpy(current_palette, default_palette, sizeof(Palette));
     while(!WindowShouldClose()) {
         if(IsWindowResized()) {
             screen_width = GetScreenWidth();
