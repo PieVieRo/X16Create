@@ -3,6 +3,7 @@
 #define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
 
+#include "functions.h"
 #include "structs.h"
 
 int main() {
@@ -22,10 +23,11 @@ int main() {
         BeginDrawing();
         ClearBackground((Color) {0x18, 0x18, 0x18});
 
+        Vector2 palette_cell = { 0 };
+        drawPalette(current_palette, &palette_cell);
+
         int two_thirds_width = screen_width - screen_width/3;
         int grid_size = sprite.pixels * sprite.pixels_size;
-        GuiGroupBox((Rectangle) { two_thirds_width, screen_height * 0.01, 16*4 + 18*2 + 10, 16*4 + 18*2 + 10 }, "Palette");
-
         Vector2 mouse_cell = { 0 };
         GuiGrid((Rectangle) { two_thirds_width/2 - grid_size/2 , screen_height/2 - grid_size/2,  grid_size, grid_size }, "", sprite.pixels_size, 1, &mouse_cell);
 
