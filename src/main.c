@@ -24,8 +24,10 @@ int main() {
         ClearBackground((Color) {0x18, 0x18, 0x18});
 
         Vector2 mouse_cell = { 0 };
-        GuiGrid((Rectangle) { screen_width * 0.0010, screen_height / 2 - 100,  sprite.pixels * sprite.pixels_size, sprite.pixels * sprite.pixels_size}, "", sprite.pixels_size, 1, &mouse_cell);
-        GuiGroupBox((Rectangle) {screen_width - screen_width/3, screen_height * 0.01, 16*4 + 18*2 + 10, 16*4 + 18*2 + 10}, "jebac igora");
+        int two_thirds_width = screen_width - screen_width/3;
+        int grid_size = sprite.pixels * sprite.pixels_size;
+        GuiGrid((Rectangle) { two_thirds_width/2 - grid_size/2 , screen_height / 2 - 100,  grid_size, grid_size }, "", sprite.pixels_size, 1, &mouse_cell);
+        GuiGroupBox((Rectangle) { two_thirds_width, screen_height * 0.01, 16*4 + 18*2 + 10, 16*4 + 18*2 + 10 }, "Palette");
         EndDrawing();
     }
     CloseWindow();
