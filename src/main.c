@@ -3,10 +3,7 @@
 #define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
 
-typedef struct {
-    int pixels;
-    int pixels_size;
-} Sprite;
+#include "structs.h"
 
 int main() {
     int screen_width = 1280;
