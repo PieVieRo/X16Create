@@ -2,8 +2,9 @@
 #define STRUCTS_H
 
 typedef struct {
-    int pixels;
-    int pixels_size;
+    int width;
+    int height;
+    Color color_data[16 * 16];
 } Tile;
 
 typedef Color Palette[256];
