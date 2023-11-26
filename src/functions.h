@@ -31,7 +31,7 @@ void drawPalette(Palette palette, Vector2* palette_cell) {
     GuiGrid(grid_rectangle, NULL, pixel_size, 1, palette_cell);
 }
 
-void drawCanvas(Tile* tile, int canvas_size, Vector2* mouse_cell) {
+void drawCanvas(Tile* tile, Palette palette, int canvas_size, Vector2* mouse_cell) {
     int screen_width = GetScreenWidth();
     int screen_height = GetScreenHeight();
     int two_thirds_width = screen_width - (screen_width / 3);
@@ -45,7 +45,7 @@ void drawCanvas(Tile* tile, int canvas_size, Vector2* mouse_cell) {
                 grid_y + ((i / tile->width) * canvas_size),
                 canvas_size,
                 canvas_size,
-                tile->color_data[i]
+                palette[tile->color_data[i]]
                 );
     }
     GuiGrid((Rectangle) { grid_x, grid_y,  grid_width, grid_height }, "", canvas_size, 1, mouse_cell);

@@ -4,7 +4,7 @@
 typedef struct {
     int width;
     int height;
-    Color color_data[16 * 16];
+    int color_data[16 * 16];
 } Tile;
 
 typedef Color Palette[256];
