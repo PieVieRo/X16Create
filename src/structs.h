@@ -4,7 +4,7 @@
 typedef struct {
     int pixels;
     int pixels_size;
-} Sprite;
+} Tile;
 
 typedef Color Palette[256];
 
