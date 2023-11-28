@@ -5,6 +5,7 @@
 
 #include "functions.h"
 #include "structs.h"
+#include "defaults.h"
 
 int main() {
     int screen_width = 1280;
