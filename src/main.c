@@ -3,6 +3,9 @@
 #define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
 
+Vector2 palette_cell = { -1, -1 };
+Vector2 canvas_cell = { -1, -1 };
+
 #include "functions.h"
 #include "structs.h"
 #include "defaults.h"
@@ -17,20 +20,9 @@ int main() {
     int canvas_size = 30;
     Palette current_palette = { 0 };
     memcpy(current_palette, default_palette, sizeof(Palette));
-    Vector2 palette_cell = { -1, -1 };
-    Vector2 canvas_cell = { -1, -1 };
     int current_color = 0;
     while(!WindowShouldClose()) {
-        if(!Vector2Equals(palette_cell, (Vector2){ -1, -1 })) {
-            if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-                current_color = palette_cell.y * 16 + palette_cell.x;
-            }
-        }
-        if(!Vector2Equals(canvas_cell, (Vector2){ -1, -1 })) {
-            if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-                tile.color_data[(int)(canvas_cell.y * tile.width + canvas_cell.x)] = current_color;
-            }
-        }
+        handleInput(&current_color, &tile, &palette_cell, &canvas_cell);
         BeginDrawing();
         ClearBackground((Color) {0x18, 0x18, 0x18});
 
