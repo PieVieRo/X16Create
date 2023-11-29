@@ -11,8 +11,6 @@ Vector2 canvas_cell = { -1, -1 };
 #include "defaults.h"
 
 int main() {
-    int screen_width = 1280;
-    int screen_height = 720;
     InitWindow(screen_width, screen_height, "X16Create");
     SetWindowState(FLAG_WINDOW_RESIZABLE);
     SetTargetFPS(60);

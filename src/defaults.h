@@ -3,6 +3,9 @@
 
 #include "structs.h"
 
+int default_screen_width = 1280;
+int default_screen_height = 720;
+
 #define X16_COLOR(r, g, b) { r * 0x11, g * 0x11, b * 0x11, 0xFF }
 Palette default_palette = {
     // ROW 1
