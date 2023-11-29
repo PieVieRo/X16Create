@@ -4,6 +4,7 @@
 #include <raygui.h>
 
 #include "functions.h"
+#include "defaults.h"
 
 float getTwoThirdsWidth() {
     int screen_width = GetScreenWidth();
@@ -19,7 +20,6 @@ void drawPalette(Palette palette, Vector2* palette_cell) {
         pixel_size * 16,
         pixel_size * 16,
     };
-    int padding = 10;
     Rectangle group_box_rectangle = {
         grid_rectangle.x - padding,
         grid_rectangle.y - padding,
