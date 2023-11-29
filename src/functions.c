@@ -5,10 +5,13 @@
 
 #include "functions.h"
 
-void drawPalette(Palette palette, Vector2* palette_cell) {
+float getTwoThirdsWidth() {
     int screen_width = GetScreenWidth();
-    int screen_height = GetScreenHeight();
-    int two_thirds_width = screen_width - (screen_width / 3);
+    return screen_width - (screen_width / 3);
+}
+
+void drawPalette(Palette palette, Vector2* palette_cell) {
+    int two_thirds_width = getTwoThirdsWidth();
     int pixel_size = 15;
     Rectangle grid_rectangle = {
         two_thirds_width + (screen_width - two_thirds_width)/2 - ((pixel_size * 16)/2),
@@ -32,9 +35,7 @@ void drawPalette(Palette palette, Vector2* palette_cell) {
 }
 
 void drawCanvas(Tile* tile, Palette palette, int canvas_size, Vector2* canvas_cell) {
-    int screen_width = GetScreenWidth();
-    int screen_height = GetScreenHeight();
-    int two_thirds_width = screen_width - (screen_width / 3);
+    int two_thirds_width = getTwoThirdsWidth();
     int grid_width = tile->width * canvas_size;
     int grid_height = tile->height * canvas_size;
     int grid_x = two_thirds_width/2 - grid_width/2;
