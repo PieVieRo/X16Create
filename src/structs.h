@@ -1,6 +1,8 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
+#include <raylib.h>
+
 typedef struct {
     int width;
     int height;

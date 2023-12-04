@@ -2,5 +2,9 @@
 #define DEFINES_H
 
 #define PADDING 10
+#define MARGIN 10
+
+#define DEFAULT_SCREEN_WIDTH 1280;
+#define DEFAULT_SCREEN_HEIGHT 720;
 
 #endif
