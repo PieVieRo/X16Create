@@ -26,7 +26,7 @@ int main() {
             screen_height = GetScreenHeight();
         }
 
-        handleInput(&current_color, &tile, &palette_cell, &canvas_cell);
+        handleDrawing(&current_color, &tile, &palette_cell, &canvas_cell);
         BeginDrawing();
         ClearBackground((Color) {0x18, 0x18, 0x18});
 

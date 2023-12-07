@@ -3,7 +3,7 @@
 
 #include "structs.h"
 
-void handleInput(int* current_color, Tile* tile, Vector2* palette_cell, Vector2* canvas_cell);
+void handleDrawing(int* current_color, Tile* tile, Vector2* palette_cell, Vector2* canvas_cell);
 
 void drawRightSide(Palette palette, Vector2* palette_cell, int current_color);
 

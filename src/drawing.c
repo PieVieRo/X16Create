@@ -11,7 +11,7 @@
 const int FONT_SIZE = 10;
 const Color FONT_COLOR = { 0x8C, 0xAC, 0xB4, 0xFF };
 
-void handleInput(int* current_color, Tile* tile, Vector2* palette_cell, Vector2* canvas_cell) {
+void handleDrawing(int* current_color, Tile* tile, Vector2* palette_cell, Vector2* canvas_cell) {
     if(!Vector2Equals(*palette_cell, (Vector2){ -1, -1 })) {
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             *current_color = palette_cell->y * 16 + palette_cell->x;
@@ -117,9 +117,9 @@ void drawCanvas(Tile* tile, Palette palette, int canvas_size, Vector2* canvas_ce
     GuiGrid((Rectangle) { grid_x, grid_y,  grid_width, grid_height }, "", canvas_size, 1, canvas_cell);
 }
 
-int dropdown_bit_depth_lock = 0;
 void drawDropdowns() {
     // BIT DEPTH DROPDOWN
+    int dropdown_bit_depth_lock = 0;
     if(GuiDropdownBox((Rectangle){0, 0, 125, 25}, "8bpp (256 colors);4bpp (16 colors);2bpp (4 colors)", (int*)&color_depth, dropdown_bit_depth_lock)) dropdown_bit_depth_lock = !dropdown_bit_depth_lock;
 }
 
