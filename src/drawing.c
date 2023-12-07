@@ -8,6 +8,9 @@
 #include "defaults.h"
 #include "globals.h"
 
+const int FONT_SIZE = 10;
+const Color FONT_COLOR = { 0x8C, 0xAC, 0xB4, 0xFF };
+
 void handleInput(int* current_color, Tile* tile, Vector2* palette_cell, Vector2* canvas_cell) {
     if(!Vector2Equals(*palette_cell, (Vector2){ -1, -1 })) {
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -58,20 +61,32 @@ void drawPalette(Palette palette, Vector2* palette_cell, float* y_cursor) {
     *y_cursor += grid_rectangle.y + grid_rectangle.height;
 }
 
+char* current_depth_text[] = {
+    "8bpp (256 colors)",
+    "4bpp (16 colors)",
+    "2bpp (4 colors)",
+};
 void drawInfo(Palette palette, int current_color, float* y_cursor) {
     int two_thirds_width = getTwoThirdsWidth();
     int pixel_size = 100;
+    float beginning_y = *y_cursor;
+    float draw_x = two_thirds_width + (screen_width - two_thirds_width)/2 - ((pixel_size)/2);
+    *y_cursor += PADDING;
+    DrawText(current_depth_text[color_depth], draw_x, *y_cursor, FONT_SIZE, FONT_COLOR);
+    int text_width = MeasureText(current_depth_text[color_depth], FONT_SIZE);
+    *y_cursor += FONT_SIZE + PADDING;
     Rectangle color_rectangle = {
-        two_thirds_width + (screen_width - two_thirds_width)/2 - ((pixel_size)/2),
-        *y_cursor + PADDING,
+        draw_x,
+        *y_cursor,
         pixel_size,
         pixel_size,
     };
+    *y_cursor += color_rectangle.height + PADDING;
     Rectangle group_box_rectangle = {
         color_rectangle.x - PADDING,
-        color_rectangle.y - PADDING,
-        color_rectangle.width + PADDING*2,
-        color_rectangle.height + PADDING*2,
+        beginning_y,
+        (text_width > color_rectangle.width ? text_width : color_rectangle.width) + PADDING*2,
+        *y_cursor - beginning_y,
     };
     GuiGroupBox(group_box_rectangle, "Info");
     DrawRectangleRec(color_rectangle, palette[current_color]);

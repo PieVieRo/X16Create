@@ -11,4 +11,10 @@ typedef struct {
 
 typedef Color Palette[256];
 
+enum Color_depth {
+    EIGHT_BPP,
+    FOUR_BPP,
+    TWO_BPP,
+};
+
 #endif
