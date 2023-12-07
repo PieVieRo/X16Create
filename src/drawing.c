@@ -93,8 +93,10 @@ void drawInfo(Palette palette, int current_color, float* y_cursor) {
 }
 
 void drawCanvas(Tile* tile, Palette palette, int canvas_size, Vector2* canvas_cell);
+void drawDropdowns();
 void drawLeftSide(Tile* tile, Palette palette, int canvas_size, Vector2* canvas_cell) {
     drawCanvas(tile, palette, canvas_size, canvas_cell);
+    drawDropdowns();
 }
 
 void drawCanvas(Tile* tile, Palette palette, int canvas_size, Vector2* canvas_cell) {
@@ -113,5 +115,11 @@ void drawCanvas(Tile* tile, Palette palette, int canvas_size, Vector2* canvas_ce
                 );
     }
     GuiGrid((Rectangle) { grid_x, grid_y,  grid_width, grid_height }, "", canvas_size, 1, canvas_cell);
+}
+
+int dropdown_bit_depth_lock = 0;
+void drawDropdowns() {
+    // BIT DEPTH DROPDOWN
+    if(GuiDropdownBox((Rectangle){0, 0, 125, 25}, "8bpp (256 colors);4bpp (16 colors);2bpp (4 colors)", (int*)&color_depth, dropdown_bit_depth_lock)) dropdown_bit_depth_lock = !dropdown_bit_depth_lock;
 }
 
