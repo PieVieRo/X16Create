@@ -16,7 +16,6 @@ int main() {
     SetWindowState(FLAG_WINDOW_RESIZABLE);
     SetTargetFPS(60);
     Tile tile = { 8, 8, {0} };
-    int canvas_size = 30;
     Palette current_palette = { 0 };
     memcpy(current_palette, default_palette, sizeof(Palette));
     int current_color = 0;
@@ -24,6 +23,7 @@ int main() {
         if(IsWindowResized()) {
             screen_width = GetScreenWidth();
             screen_height = GetScreenHeight();
+            updateScale();
         }
 
         handleDrawing(&current_color, &tile, &palette_cell, &canvas_cell);
@@ -32,7 +32,7 @@ int main() {
 
         drawRightSide(current_palette, &palette_cell, current_color);
 
-        drawLeftSide(&tile, current_palette, canvas_size, &canvas_cell);
+        drawLeftSide(&tile, current_palette, &canvas_cell);
 
         EndDrawing();
     }
