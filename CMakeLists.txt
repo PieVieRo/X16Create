@@ -6,17 +6,26 @@ set(CMAKE_C_STANDARD 11)
 find_package(raylib)
 include_directories(external)
 
+file(GLOB_RECURSE SRC_DIR "src/*.c" "src/*.h")
+
 add_executable(x16create
-        external/raygui.h
-        src/defaults.c
-        src/defaults.h
-        src/defines.h
-        src/drawing.c
-        src/drawing.h
-        src/globals.c
-        src/globals.h
-        src/main.c
-        src/structs.h)
+        ${SRC_DIR}
+)
+
+if(MSVC)
+    set_source_files_properties(
+            ${SRC_DIR}
+            PROPERTIES
+            COMPILE_FLAGS "/W4 /WX"
+    )
+else()
+    set_source_files_properties(
+            ${SRC_DIR}
+            PROPERTIES
+            COMPILE_FLAGS "-Wall -Wextra -Wpedantic"
+    )
+endif(MSVC)
+
 
 if(WIN32)
     target_link_libraries(x16create raylib winmm gdi32 opengl32 )
