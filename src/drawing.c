@@ -10,7 +10,12 @@
 #include "globals.h"
 
 const int FONT_SIZE = 10;
-const Color FONT_COLOR = { 0x8C, 0xAC, 0xB4, 0xFF };
+const Color FONT_COLOR = {
+        .r = 0x8C,
+        .g = 0xAC,
+        .b = 0xB4,
+        .a = 0xFF
+};
 float scale = 1;
 
 void handleDrawing(int* current_color, Tile* tile, Vector2* palette_cell, Vector2* canvas_cell) {
@@ -50,7 +55,7 @@ void drawRightSide(Palette palette, Vector2* palette_cell, int current_color) {
 void drawPalette(Palette palette, Vector2* palette_cell, int current_color, float* y_cursor) {
     const int pixel_size = 15 * scale;
     const int two_thirds_width = getTwoThirdsWidth();
-    
+
     float palette_grid_x          = two_thirds_width + (screen_width - two_thirds_width)/2 - ((pixel_size * 16)/2);
     float palette_grid_length     = 16 * pixel_size;
     const int triangle_side       = pixel_size;
@@ -59,53 +64,53 @@ void drawPalette(Palette palette, Vector2* palette_cell, int current_color, floa
     if(color_depth > EIGHT_BPP) {
 
         palette_grid_x -= (triangle_height + grid_tri_padding)/2;
-        
-        const Vector2 triangle_coords[3] = {
-            (Vector2) { 
-                .x = palette_grid_x + palette_grid_length + grid_tri_padding,
-                .y = *y_cursor + PADDING + (pixel_size/2) + (getCurrentPalette(current_color) * pixel_size),
 
-            },
-            (Vector2) {
-                .x = triangle_coords[0].x + triangle_height,
-                .y = *y_cursor + PADDING + pixel_size + (getCurrentPalette(current_color) * pixel_size),
-            },
-            (Vector2) {
-                .x = triangle_coords[0].x + triangle_height,
-                .y = *y_cursor + PADDING + (getCurrentPalette(current_color) * pixel_size),
-            },
+        const Vector2 triangle_coords[3] = {
+                (Vector2) {
+                        .x = palette_grid_x + palette_grid_length + grid_tri_padding,
+                        .y = *y_cursor + PADDING + (pixel_size/2) + (getCurrentPalette(current_color) * pixel_size),
+
+                },
+                (Vector2) {
+                        .x = triangle_coords[0].x + triangle_height,
+                        .y = *y_cursor + PADDING + pixel_size + (getCurrentPalette(current_color) * pixel_size),
+                },
+                (Vector2) {
+                        .x = triangle_coords[0].x + triangle_height,
+                        .y = *y_cursor + PADDING + (getCurrentPalette(current_color) * pixel_size),
+                },
         };
         DrawTriangle(triangle_coords[0], triangle_coords[1], triangle_coords[2], RAYWHITE);
     }
 
     Rectangle palette_grid_rectangle = {
-        .x      = palette_grid_x,
-        .y      = *y_cursor + PADDING,
-        .width  = palette_grid_length,
-        .height = palette_grid_length,
+            .x      = palette_grid_x,
+            .y      = *y_cursor + PADDING,
+            .width  = palette_grid_length,
+            .height = palette_grid_length,
     };
     Rectangle palette_group_box = {
-        .x      = palette_grid_x - PADDING,
-        .y      = *y_cursor,
-        .width  = palette_grid_length + 2*PADDING,
-        .height = palette_grid_length + 2*PADDING,
+            .x      = palette_grid_x - PADDING,
+            .y      = *y_cursor,
+            .width  = palette_grid_length + 2*PADDING,
+            .height = palette_grid_length + 2*PADDING,
     };
-    if(color_depth > EIGHT_BPP) {   
+    if(color_depth > EIGHT_BPP) {
         palette_group_box.width += grid_tri_padding + triangle_height;
-    }   
+    }
     GuiGroupBox(palette_group_box, "Palette");
     for(int i = 0; i < 256; ++i) {
         DrawRectangle((i % 16 * pixel_size) + palette_grid_rectangle.x, (i / 16 * pixel_size) + palette_grid_rectangle.y,
-                pixel_size, pixel_size, palette[i]);
+                      pixel_size, pixel_size, palette[i]);
     }
     GuiGrid(palette_grid_rectangle, NULL, pixel_size, 1, palette_cell);
     *y_cursor += palette_group_box.height;
 }
 
 char* current_depth_text[] = {
-    "8bpp (256 colors)",
-    "4bpp (16 colors)",
-    "2bpp (4 colors)",
+        "8bpp (256 colors)",
+        "4bpp (16 colors)",
+        "2bpp (4 colors)",
 };
 void drawInfo(Palette palette, int current_color, float* y_cursor) {
     int two_thirds_width = getTwoThirdsWidth();
@@ -117,17 +122,17 @@ void drawInfo(Palette palette, int current_color, float* y_cursor) {
     int text_width = MeasureText(current_depth_text[color_depth], FONT_SIZE*scale);
     *y_cursor += (FONT_SIZE + PADDING) * scale;
     Rectangle color_rectangle = {
-        draw_x,
-        *y_cursor,
-        pixel_size,
-        pixel_size,
+            draw_x,
+            *y_cursor,
+            pixel_size,
+            pixel_size,
     };
     *y_cursor += color_rectangle.height + PADDING*scale;
     Rectangle group_box_rectangle = {
-        color_rectangle.x - PADDING*scale,
-        beginning_y,
-        (text_width > color_rectangle.width ? text_width : color_rectangle.width) + PADDING*2*scale,
-        *y_cursor - beginning_y,
+            color_rectangle.x - PADDING*scale,
+            beginning_y,
+            (text_width > color_rectangle.width ? text_width : color_rectangle.width) + PADDING*2*scale,
+            *y_cursor - beginning_y,
     };
     GuiGroupBox(group_box_rectangle, "Info");
     DrawRectangleRec(color_rectangle, palette[current_color]);
@@ -154,7 +159,7 @@ void drawCanvas(Tile* tile, Palette palette, Vector2* canvas_cell) {
                 canvas_size,
                 canvas_size,
                 palette[tile->color_data[i]]
-                );
+        );
     }
     GuiGrid((Rectangle) { grid_x, grid_y,  grid_width, grid_height }, "", canvas_size, 1, canvas_cell);
 }
