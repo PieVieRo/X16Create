@@ -1,1 +1,0 @@
-gcc -o X16Create.exe src\main.c src\drawing.c src\defaults.c src\globals.c -I"C:/Program Files (x86)/raylib/include" -lraylib -lgdi32 -lopengl32 -lwinmm -Wall -Wextra -Wno-missing-field-initializers --debug
