@@ -16,13 +16,13 @@ if(MSVC)
     set_source_files_properties(
             ${SRC_DIR}
             PROPERTIES
-            COMPILE_FLAGS "/W4 /WX"
+            COMPILE_FLAGS "/W4 /WX /Wd4068"
     )
 else()
     set_source_files_properties(
             ${SRC_DIR}
             PROPERTIES
-            COMPILE_FLAGS "-Wall -Wextra -Wpedantic"
+            COMPILE_FLAGS "-Wall -Wextra -Wpedantic -Wno-unknown-pragmas"
     )
 endif(MSVC)
 

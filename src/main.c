@@ -1,6 +1,16 @@
 #include <raylib.h>
+
+
+// non-MSVC pragmas
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+// MSVC pragmas
+#pragma warning( push )
+#pragma warning( disable : 4189)
 #define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
+#pragma warning( pop )
+#pragma GCC pop
 
 Vector2 palette_cell = { -1, -1 };
 Vector2 canvas_cell = { -1, -1 };
