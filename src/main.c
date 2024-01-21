@@ -27,7 +27,7 @@ int main() {
 
         handleDrawing(&current_color, &tile, &palette_cell, &canvas_cell);
         BeginDrawing();
-        ClearBackground((Color) {0x18, 0x18, 0x18});
+        ClearBackground((Color) {0x18, 0x18, 0x18, 0xFF});
 
         drawRightSide(current_palette, &palette_cell, current_color);
 
