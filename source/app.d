@@ -7,12 +7,12 @@ import globals;
 import palette;
 import drawing;
 
-void main()
+int main()
 {
     const(int) screen_width  = 1280;
     const(int) screen_height = 720;
-    InitWindow(screen_width, screen_height, "X16Create");
 
+    InitWindow(screen_width, screen_height, "X16Create");
     SetWindowState(ConfigFlags.FLAG_WINDOW_RESIZABLE);
 
     current_palette = default_palette;
@@ -30,9 +30,8 @@ void main()
 
         BeginDrawing();
         ClearBackground(Color(0x18, 0x18, 0x18, 0xFF));
-
         drawingLoop();
-
         EndDrawing();
     }
+    return 0;
 }
