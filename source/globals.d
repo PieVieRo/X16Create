@@ -7,7 +7,7 @@ public enum depth {
     four_bpp,
     two_bpp,
 };
-public ubyte current_depth = depth.four_bpp;
+public ubyte current_depth = depth.eight_bpp;
 public Palette current_palette;
 
 
