@@ -87,7 +87,7 @@ private void drawRightSide() {
     }
 }
 
-private int getCurrentPalette(ubyte current_color) {
+private int getCurrentPaletteRow(ubyte current_color) {
     return current_color / 16;
 }
 
@@ -117,15 +117,15 @@ private int drawPalette(const(int) drawing_height) {
         Vector2[3] triangle_coords; 
         triangle_coords[0] = Vector2(
                 palette_grid_x + palette_grid_length + grid_tri_padding,
-                drawing_height + padding + (pixel_size/2) + (getCurrentPalette(current_color) * pixel_size),
+                drawing_height + padding + (pixel_size/2) + (getCurrentPaletteRow(current_color) * pixel_size),
                 );
         triangle_coords[1] = Vector2(
                 triangle_coords[0].x + triangle_height,
-                drawing_height + padding + pixel_size + (getCurrentPalette(current_color) * pixel_size),
+                drawing_height + padding + pixel_size + (getCurrentPaletteRow(current_color) * pixel_size),
                 );
         triangle_coords[2] = Vector2(
                 triangle_coords[0].x + triangle_height,
-                drawing_height + padding + (getCurrentPalette(current_color) * pixel_size),
+                drawing_height + padding + (getCurrentPaletteRow(current_color) * pixel_size),
                 );
         DrawTriangle(triangle_coords[0], triangle_coords[1], triangle_coords[2], Colors.RAYWHITE);
 
