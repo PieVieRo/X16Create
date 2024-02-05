@@ -7,6 +7,7 @@ import raylib;
 import raygui;
 
 import globals;
+import functions;
 
 import drawing;
 import tile;
@@ -64,10 +65,11 @@ private void drawCanvas() {
     int grid_y = (screen_height/2 - grid_height/2).to!int;
     for(int i=0; i < (current_tile.width * current_tile.height); i++) {
         int current_pixel_offset = calculatePixelOffset(i);
+        ubyte idx = getPaletteIndex(current_tile.color_data[current_pixel_offset], current_depth, current_color);
         DrawRectangle(grid_x + (i % current_tile.width * canvas_size), grid_y + ((i / current_tile.width) * canvas_size),
-            canvas_size, canvas_size,
-            current_palette[current_tile.color_data[current_pixel_offset]],
-            );
+                canvas_size, canvas_size,
+                current_palette[idx],
+                );
     }
     canvas_cell = GuiGrid(Rectangle(grid_x, grid_y, grid_width, grid_height), toStringz(""), canvas_size, 1);
 }
@@ -85,10 +87,6 @@ private void drawRightSide() {
     foreach(ui_element_func element; elements) {
         draw_element(drawing_height, element);
     }
-}
-
-private int getCurrentPaletteRow(ubyte current_color) {
-    return current_color / 16;
 }
 
 private int drawPalette(const(int) drawing_height) {
@@ -109,7 +107,7 @@ private int drawPalette(const(int) drawing_height) {
             palette_grid_length + 2*padding,
             palette_grid_length + 2*padding,
             );
-    
+
     if(current_depth != depth.eight_bpp) {
         const(int) triangle_side = pixel_size;
         const(float) triangle_height = (triangle_side * sqrtf(3))/2;
