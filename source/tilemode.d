@@ -10,14 +10,20 @@ import globals;
 import functions;
 
 import drawing;
-import tile;
+import tileset;
 
 Vector2 palette_cell = Vector2(-1,-1);
 Vector2 canvas_cell = Vector2(-1,-1);
 ubyte current_color = 0;
-Tile current_tile;
+Tileset current_tileset;
+int current_tile_idx = 0;
 
 public void tileModeInputLoop() {
+    // TODO: make a saving button
+    if(IsKeyDown(KeyboardKey.KEY_S)) {
+        saveTileset("tileset.bin", current_tileset, current_depth);
+    }
+
     with(MouseButton) {
         if(!Vector2Equals(palette_cell, Vector2(-1, -1))) {
             if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -26,7 +32,7 @@ public void tileModeInputLoop() {
         }
         if(!Vector2Equals(canvas_cell, Vector2(-1, -1))) {
             if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-                current_tile.color_data[(canvas_cell.y * 16 + canvas_cell.x).to!int] = current_color;
+                current_tileset.tiles[current_tile_idx].color_data[(canvas_cell.y * 16 + canvas_cell.x).to!int] = current_color;
             }
         }
     }
@@ -55,18 +61,18 @@ private void drawDropdowns() {
 }
 
 private int calculatePixelOffset(int val) {
-    return val/current_tile.width*16 + val%current_tile.width;
+    return val/current_tileset.width*16 + val%current_tileset.width;
 }
 private void drawCanvas() {
     int canvas_size = (30 * scale).to!int;
-    int grid_width = current_tile.width * canvas_size;
-    int grid_height = current_tile.width * canvas_size;
+    int grid_width = current_tileset.width * canvas_size;
+    int grid_height = current_tileset.width * canvas_size;
     int grid_x = (two_thirds_width/2 - grid_width/2).to!int;
     int grid_y = (screen_height/2 - grid_height/2).to!int;
-    for(int i=0; i < (current_tile.width * current_tile.height); i++) {
+    for(int i=0; i < (current_tileset.width * current_tileset.height); i++) {
         int current_pixel_offset = calculatePixelOffset(i);
-        ubyte idx = getPaletteIndex(current_tile.color_data[current_pixel_offset], current_depth, current_color);
-        DrawRectangle(grid_x + (i % current_tile.width * canvas_size), grid_y + ((i / current_tile.width) * canvas_size),
+        ubyte idx = getPaletteIndex(current_tileset.tiles[current_tile_idx].color_data[current_pixel_offset], current_depth, current_color);
+        DrawRectangle(grid_x + (i % current_tileset.width * canvas_size), grid_y + ((i / current_tileset.width) * canvas_size),
                 canvas_size, canvas_size,
                 current_palette[idx],
                 );
